@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./main.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500&display=swap" rel="stylesheet">
+    <title>Almaz Zhanaidar</title>
+</head>
+
+<body>
+
+    <video autoplay muted loop id="bgVideo">
+        <source src="./img/bg.mp4" type="video/mp4">
+        Ваш браузер не поддерживает фоновое видео.
+    </video>
+
+    <!-- Навигация -->
+    <nav class="navbar navbar-custom d-flex justify-content-between align-items-center">
+        <a class="navbar-brand d-flex align-items-center" href="#">
+            <img src="./img/logo.gif" alt="Логотип">
+            <span class="fs-4">AlmZ</span>
+        </a>
+        <div class="d-flex align-items-center">
+            <button class="btn btn-lofi me-2" data-bs-toggle="modal" data-bs-target="#loginModal">Войти</button>
+            <button class="btn btn-lofi" data-bs-toggle="modal" data-bs-target="#registerModal">Регистрация</button>
+        </div>
+    </nav>
+
+    <!-- Секция с трансляцией -->
+    <section class="lofi-stream text-center">
+        <h2>Прямая трансляция Lofi Girl 🎧</h2>
+        <iframe src="https://www.youtube.com/embed/jfKfPfyJRdk"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen>
+        </iframe>
+    </section>
+
+    <!-- Модальное окно: Вход -->
+    <div class="modal fade" id="loginModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="modal-title mb-3">Вход</h5>
+                <input type="email" class="form-control mb-2" placeholder="Email">
+                <input type="password" class="form-control mb-3" placeholder="Пароль">
+                <button class="btn btn-lofi w-100">Войти</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Модальное окно: Регистрация -->
+    <div class="modal fade" id="registerModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="modal-title mb-3">Регистрация</h5>
+                <input type="text" class="form-control mb-2" placeholder="Имя пользователя">
+                <input type="email" class="form-control mb-2" placeholder="Email">
+                <input type="password" class="form-control mb-3" placeholder="Пароль">
+                <button class="btn btn-lofi w-100">Зарегистрироваться</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Секция с отзывами -->
+    <section class="reviews text-center">
+        <div class="container py-5">
+            <h2 class="mb-4">Отзывы</h2>
+            <div id="reviewsList" class="text-start mt-4"></div>
+            <!-- Здесь в будущем будут появляться отзывы -->
+            <button class="btn btn-lofi" data-bs-toggle="modal" data-bs-target="#reviewModal">Оставить отзыв</button>
+        </div>
+    </section>
+
+    <!-- Модальное окно: Отзыв -->
+    <div class="modal fade" id="reviewModal" tabindex="-1" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content p-4">
+                <h5 class="modal-title mb-3">Оставить отзыв</h5>
+                <form id="reviewForm">
+                    <textarea class="form-control mb-3" id="reviewText" placeholder="Ваш отзыв" rows="4"
+                        required></textarea>
+                    <button type="submit" class="btn btn-lofi w-100">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+
+
+    <!-- Футер -->
+    <footer class="footer text-center py-4 mt-5">
+        <div class="container">
+            <p class="mb-2">&copy; <span id="year"></span> by Almaz Zhanaidar</p>
+            <div class="social-icons">
+                <a href="https://github.com/" target="_blank" class="me-3 text-dark"><i class="bi bi-github"></i></a>
+                <a href="https://t.me/" target="_blank" class="me-3 text-dark"><i class="bi bi-telegram"></i></a>
+                <a href="https://vk.com/" target="_blank" class="text-dark"><i class="bi bi-vk"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../public/main.js"></script>
+    <script src="../models/review.js"></script>
+    <script src="../models/user.js"></script>
+    <script src="../routes/auth.js"></script>
+    <script src="../routes/review.js"></script>
+    <script src="../server.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>
