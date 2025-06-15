@@ -4,6 +4,7 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const dotenv = require('dotenv');
 const path = require('path');
+const cors = require('cors');
 
 const authRoutes = require('./routes/auth');
 const reviewRoutes = require('./routes/review');
@@ -34,10 +35,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/auth', authRoutes);
 app.use('/review', reviewRoutes);
 
+
 // Обработка ошибок 404
 app.use((req, res) => {
     res.status(404).json({ message: 'Страница не найдена' });
 });
+
+app.use(cors({
+    origin: 'https://projectpractice-production.up.railway.app',
+    credentials: true
+}));
 
 // Запуск сервера
 const PORT = process.env.PORT || 3000;

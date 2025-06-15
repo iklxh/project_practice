@@ -25,7 +25,8 @@ registerModal.querySelector('button').addEventListener('click', async () => {
     const res = await fetch('/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ username, email, password })
+        body: JSON.stringify({ username, email, password }),
+        credentials: 'include'
     });
 
     const data = await res.json();
@@ -46,7 +47,8 @@ loginModal.querySelector('button').addEventListener('click', async () => {
     const res = await fetch('/auth/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password })
+        body: JSON.stringify({ email, password }),
+        credentials: 'include'
     });
 
     const data = await res.json();
@@ -70,7 +72,8 @@ reviewForm.addEventListener('submit', async (e) => {
     const res = await fetch('/review', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ text })
+        body: JSON.stringify({ text }),
+        credentials: 'include'
     });
 
     const data = await res.json();
@@ -113,7 +116,7 @@ document.getElementById('logoutBtn').addEventListener('click', async () => {
 
 // Проверка авторизации
 async function checkAuth() {
-    const res = await fetch('/auth/check');
+    const res = await fetch('/auth/check', { credentials: 'include' });
     const data = await res.json();
     isLoggedIn = data.authorized;
 
