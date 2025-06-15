@@ -35,13 +35,19 @@ router.post('/login', async (req, res) => {
 });
 
 // Проверка авторизации
-router.get('/check', (req, res) => {
-    if (req.session.user) {
-        res.json({ authorized: true, username: req.session.user.username });
-    } else {
-        res.json({ authorized: false });
+router.get('/check', async (req, res) => {
+    if (!req.session.userId) {
+        return res.json({ authorized: false });
     }
+
+    const user = await User.findById(req.session.userId);
+    if (!user) {
+        return res.json({ authorized: false });
+    }
+
+    res.json({ authorized: true, username: user.username });
 });
+
 
 // Выход
 router.post('/logout', (req, res) => {

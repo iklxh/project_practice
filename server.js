@@ -31,6 +31,12 @@ app.use(session({
 // Обслуживание статичных файлов
 app.use(express.static(path.join(__dirname, 'public')));
 
+// CORS
+app.use(cors({
+    origin: 'https://projectpractice-production.up.railway.app',
+    credentials: true
+}));
+
 // Роуты
 app.use('/auth', authRoutes);
 app.use('/review', reviewRoutes);
@@ -40,11 +46,6 @@ app.use('/review', reviewRoutes);
 app.use((req, res) => {
     res.status(404).json({ message: 'Страница не найдена' });
 });
-
-app.use(cors({
-    origin: 'https://projectpractice-production.up.railway.app',
-    credentials: true
-}));
 
 // Запуск сервера
 const PORT = process.env.PORT || 3000;
