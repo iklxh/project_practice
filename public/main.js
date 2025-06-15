@@ -8,6 +8,12 @@ const reviewForm = document.getElementById('reviewForm');
 const reviewText = document.getElementById('reviewText');
 const reviewsList = document.getElementById('reviewsList');
 
+const loginLink = document.getElementById('loginLink');
+const registerLink = document.getElementById('registerLink');
+const logoutBtn = document.getElementById('logoutBtn');
+const userInfo = document.getElementById('userInfo');
+const usernameDisplay = document.getElementById('usernameDisplay');
+
 // Показываем отзывы при загрузке
 loadReviews();
 
@@ -60,6 +66,18 @@ loginModal.querySelector('button').addEventListener('click', async () => {
     }
 });
 
+// Обработка выхода
+logoutBtn.addEventListener('click', async () => {
+    const res = await fetch('/auth/logout', {
+        method: 'POST',
+        credentials: 'include'
+    });
+    const data = await res.json();
+    alert(data.message);
+    isLoggedIn = false;
+    checkAuth();
+});
+
 // Обработка формы отзыва
 reviewForm.addEventListener('submit', async (e) => {
     e.preventDefault();
@@ -105,29 +123,21 @@ async function loadReviews() {
     });
 }
 
-document.getElementById('logoutBtn').addEventListener('click', async () => {
-    const res = await fetch('/auth/logout');
-    const data = await res.json();
-    alert(data.message);
-    isLoggedIn = false;
-    checkAuth();
-});
-
-
 // Проверка авторизации
 async function checkAuth() {
     const res = await fetch('/auth/check', { credentials: 'include' });
     const data = await res.json();
     isLoggedIn = data.authorized;
 
-    const userInfo = document.getElementById('userInfo');
-    const usernameDisplay = document.getElementById('usernameDisplay');
-
     if (isLoggedIn) {
         userInfo.classList.remove('d-none');
         usernameDisplay.textContent = data.username || 'Пользователь';
+        loginLink.classList.add('d-none');
+        registerLink.classList.add('d-none');
     } else {
         userInfo.classList.add('d-none');
         usernameDisplay.textContent = '';
+        loginLink.classList.remove('d-none');
+        registerLink.classList.remove('d-none');
     }
 }
