@@ -33,6 +33,7 @@ registerModal.querySelector('button').addEventListener('click', async () => {
     if (res.ok) {
         bootstrap.Modal.getInstance(registerModal).hide();
         isLoggedIn = true;
+        checkAuth();
     }
 });
 
@@ -53,6 +54,7 @@ loginModal.querySelector('button').addEventListener('click', async () => {
     if (res.ok) {
         bootstrap.Modal.getInstance(loginModal).hide();
         isLoggedIn = true;
+        checkAuth();
     }
 });
 
@@ -77,6 +79,7 @@ reviewForm.addEventListener('submit', async (e) => {
         reviewText.value = '';
         bootstrap.Modal.getInstance(reviewModal).hide();
         loadReviews();
+        checkAuth();
     }
 });
 
@@ -99,9 +102,29 @@ async function loadReviews() {
     });
 }
 
+document.getElementById('logoutBtn').addEventListener('click', async () => {
+    const res = await fetch('/auth/logout');
+    const data = await res.json();
+    alert(data.message);
+    isLoggedIn = false;
+    checkAuth();
+});
+
+
 // Проверка авторизации
 async function checkAuth() {
     const res = await fetch('/auth/check');
     const data = await res.json();
     isLoggedIn = data.authorized;
+
+    const userInfo = document.getElementById('userInfo');
+    const usernameDisplay = document.getElementById('usernameDisplay');
+
+    if (isLoggedIn) {
+        userInfo.classList.remove('d-none');
+        usernameDisplay.textContent = data.username || 'Пользователь';
+    } else {
+        userInfo.classList.add('d-none');
+        usernameDisplay.textContent = '';
+    }
 }

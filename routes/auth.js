@@ -36,10 +36,10 @@ router.post('/login', async (req, res) => {
 
 // Проверка авторизации
 router.get('/check', (req, res) => {
-    if (req.session.userId) {
-        return res.json({ authorized: true });
+    if (req.session.user) {
+        res.json({ authorized: true, username: req.session.user.username });
     } else {
-        return res.json({ authorized: false });
+        res.json({ authorized: false });
     }
 });
 
